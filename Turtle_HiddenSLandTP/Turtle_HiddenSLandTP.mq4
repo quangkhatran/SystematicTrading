@@ -43,7 +43,7 @@ extern double  FixedTakeProfit=0; // Hard Take Profit in Pips. Will be overridde
 extern bool    IsVolatilityTakeProfitOn=False;
 extern double  VolBasedTPMultiplier=0; // Take Profit Amount in units of Volatility
 
-/* Disabled for Desiree 2.0
+/* Disabled for now
 extern string  Header4="----------Hidden TP & SL Settings-----------";
 
 extern bool    UseHiddenStopLoss=False;
@@ -75,7 +75,7 @@ extern bool    UseHiddenTrailingStops=False;
 extern double  TrailingStopDistance_Hidden=0; // In pips
 extern double  TrailingStopBuffer_Hidden=0; // In pips
 
-/* Disabled for Desiree 2.0
+/* Disabled for now
 extern string  Header9="----------Volatility Trailing Stops Settings-----------";
 extern bool    UseVolTrailingStops=False;
 extern double  VolTrailingDistMultiplier=0; // In units of ATR
@@ -127,8 +127,6 @@ double KeltnerUpper1, KeltnerLower1;
 int CrossTriggered1, CrossTriggered2, CrossTriggered3;
 int OrderNum1, OrderNum2, OrderNum3, OrderNum4;
 
-// TDL 3: Declare variables.
-
 bool pnLEntryLock = False;
 double pnL;
 
@@ -154,7 +152,7 @@ int init()
 
 // If EA disconnects abruptly and there are open positions from this EA, records form these arrays will be gone.
    
-   /* Disabled for Desiree 2.0
+   /* Disabled for now
    if(UseHiddenStopLoss) ArrayResize(HiddenSLList,MaxPositionsAllowed,0);
    if(UseHiddenTakeProfit) ArrayResize(HiddenTPList,MaxPositionsAllowed,0);
    */
@@ -162,7 +160,7 @@ int init()
    if(UseHiddenBreakevenStops) ArrayResize(HiddenBEList,MaxPositionsAllowed,0);
    if(UseHiddenTrailingStops) ArrayResize(HiddenTrailingList,MaxPositionsAllowed,0);
    
-   /* Disabled for Desiree 2.0
+   /* Disabled for now
    if(UseVolTrailingStops) ArrayResize(VolTrailingList,MaxPositionsAllowed,0);
    if(UseHiddenVolTrailing) ArrayResize(HiddenVolTrailingList,MaxPositionsAllowed,0);
    */
@@ -204,7 +202,7 @@ int start()
    DonchianTopExit1 = iCustom(NULL, 0, "Donchian Channels", DonchianPeriodsExit, MaxBars, 1, 1);
    DonchianBottomExit1 = iCustom(NULL, 0, "Donchian Channels", DonchianPeriodsExit, MaxBars, 0, 1);
    
-   // TDL 4: Modify Cross functions to allow for immediate execution.
+   // Modify Cross functions to allow for immediate execution.
    
    LongEntryBreakout = Crossed1(Ask, DonchianTopEntry1);
    ShortEntryBreakout = Crossed2(Bid, DonchianBottomEntry1);
@@ -233,7 +231,7 @@ int start()
    if(UseBreakevenStops) BreakevenStopAll(OnJournaling,RetryInterval,BreakevenBuffer,MagicNumber,P);
    if(UseTrailingStops) TrailingStopAll(OnJournaling,TrailingStopDistance,TrailingStopBuffer,RetryInterval,MagicNumber,P);
    
-   /* Disabled for Desiree 2.0
+   /* Disabled for now
       if(UseVolTrailingStops) {
          UpdateVolTrailingList(OnJournaling,RetryInterval,MagicNumber);
          ReviewVolTrailingStop(OnJournaling,VolTrailingDistMultiplier,VolTrailingBuffMultiplier,RetryInterval,MagicNumber,P);
@@ -242,7 +240,7 @@ int start()
    
 //----------(Hidden) TP, SL, Breakeven and Trailing Stops Variables-----------  
    
-   /* Disabled for Desiree 2.0
+   /* Disabled for now
       if(UseHiddenStopLoss) TriggerStopLossHidden(OnJournaling,RetryInterval,MagicNumber,Slippage,P);
       if(UseHiddenTakeProfit) TriggerTakeProfitHidden(OnJournaling,RetryInterval,MagicNumber,Slippage,P);
    */
@@ -254,7 +252,7 @@ int start()
       UpdateHiddenTrailingList(OnJournaling,RetryInterval,MagicNumber);
       SetAndTriggerHiddenTrailing(OnJournaling,TrailingStopDistance_Hidden,TrailingStopBuffer_Hidden,Slippage,RetryInterval,MagicNumber,P);
    }
-   /* Disabled for Desiree 2.0
+   /* Disabled for now
       if(UseHiddenVolTrailing) {
          UpdateHiddenVolTrailingList(OnJournaling,RetryInterval,MagicNumber);
          TriggerAndReviewHiddenVolTrailing(OnJournaling,VolTrailingDistMultiplier_Hidden,VolTrailingBuffMultiplier_Hidden,Slippage,RetryInterval,MagicNumber,P);
@@ -272,7 +270,7 @@ int start()
 
 //----------Entry Rules (Market and Pending) -----------
 
-   // TDL 2: Lock the next trade if profitable
+   // Lock the next trade if profitable
 
    if(pnLEntryLock == True && (EntrySignal(LongEntryBreakout) == 1 || EntrySignal(ShortEntryBreakout) == 2)) {
       pnLEntryLock = False;
@@ -291,7 +289,7 @@ int start()
                   
                   entryLock = True; // Prevents future entry signals
                   
-                  /* Disabled for Desiree 2.0
+                  /* Disabled for now
                      // Set Stop Loss value for Hidden SL
                      if(UseHiddenStopLoss) SetStopLossHidden(OnJournaling,IsVolatilityStopLossOn_Hidden,FixedStopLoss_Hidden,turtleATR,VolBasedSLMultiplier_Hidden,P,OrderNumber);
          
@@ -317,7 +315,7 @@ int start()
                  
                   entryLock = True; // Prevents future entry signals
                
-                  /* Disabled for Desiree 2.0
+                  /* Disabled for now
                      // Set Stop Loss value for Hidden SL
                      if(UseHiddenStopLoss) SetStopLossHidden(OnJournaling,IsVolatilityStopLossOn_Hidden,FixedStopLoss_Hidden,turtleATR,VolBasedSLMultiplier_Hidden,P,OrderNumber);
          
@@ -344,7 +342,7 @@ int start()
          firstStopLevel = 0; // Refresh value to 0
          entryLock = False;
          
-         // TDL 1: Measure trade profit and loss.
+         // Measure trade profit and loss.
          
          pnL = CheckPositionPnL(OnJournaling, OrderNum1, OrderNum2, OrderNum3, OrderNum4, MagicNumber);
          OrderNum1 = 0;
@@ -413,7 +411,7 @@ Content:
 35) TurtleModifyStops
 36) HasPositionsDecreased
 37) HasPositionsIncreased
-38) CheckPositionPnL (TDL 1)
+38) CheckPositionPnL
 
 */
 
