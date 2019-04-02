@@ -1,0 +1,15 @@
+Note that: The parameters used in these strategies are not optimized. Depends on the market condition and different factors arised, some strategies are more effective than the others. 
+Hence, more work needs to be done before being able to apply these strategies in practice:
+- More optimizations
+- More backtestings
+- More statistical tests to check the market inefficiencies for different assets
+- More theories and implementations on different aspects in trading: new signal genaration, new position sizing, etc.  
+
+Most of the strategies are implemented in MQL4 so that I can directly use them in Metatrader for optimization and backtesting. Moreover, I can switch to live trading after thorough analysis. 
+
+Every folder includes the necessary code to run the strategy or the statistical test. Note that: To run a strategy in MetaTrader4, the strategy script should be saved in the "Experts" folder and the indicator script should be saved in the "Indicators" folder.
+
+Every strategy script usually starts with a trading strategy description such as entry rules, exit rules, stop loss and take profit criteria and position sizing. 
+
+
+
