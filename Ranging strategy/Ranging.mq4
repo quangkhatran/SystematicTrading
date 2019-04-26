@@ -7,8 +7,8 @@ ENTRY RULES:
    2. Enter a short trade when closing price crosses Keltner Channels(20) Upper Bound from top
    
 EXIT RULES:
-- Profit-Taking Exit 1: Exit the long trade when closing price moved down by 2 ATR(20)   
-- Profit-Taking Exit 2: Exit the short trade when closing price moved up by 2 ATR(20) 
+- Profit-Taking Exit 1: Exit the long trade when closing price moved up by 2 ATR(20)   
+- Profit-Taking Exit 2: Exit the short trade when closing price moved down by 2 ATR(20) 
 - Stop Loss Exit: 1 ATR(20) Hard stop
 - Generic Exit: Stop after 10 periods
    
